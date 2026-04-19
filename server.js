@@ -124,12 +124,15 @@ router.post('/signin', async (req, res) => { // Use async/await
       res.status(401).json({ success: false, msg: 'Authentication failed. Incorrect password.' }); // 401 Unauthorized
     }
   } catch (err) {
-    console.error(err); // Log the error
-    console.log(process.env.SECRET_KEY);
-    console.log(req.body);
-    res.status(500).json({ success: false, message: 'Something went wrong. Please try again later.' }); // 500 Internal Server Error
-    
-  }
+  console.error("SIGNIN ERROR:", err);
+  console.log("SECRET_KEY:", process.env.SECRET_KEY);
+  console.log("REQUEST BODY:", req.body);
+
+  res.status(500).json({
+    success: false,
+    error: err.message
+  });
+}
 });
 
 // --------------------------------------------------------------------------------------------------
