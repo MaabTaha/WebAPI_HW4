@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/shawnmccarthy/CSC3916_HW3#readme",
   "dependencies": {
-    "bcrypt-nodejs": "0.0.3",
+    "bcrypt": "^6.0.0",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
@@ -28,10 +28,12 @@
     "express": "^4.17.1",
     "http": "0.0.1-security",
     "jsonwebtoken": "^9.0.0",
+    "mongodb": "^7.1.1",
     "mongoose": "^5.11.18",
     "passport": "^0.6.0",
     "passport-http": "^0.3.0",
-    "passport-jwt": "^4.0.0"
+    "passport-jwt": "^4.0.0",
+    "request-promise": "^4.2.6"
   },
   "devDependencies": {
     "chai": "^4.3.0",
