@@ -31,6 +31,13 @@ const crypto = require('crypto');
 
 const GA_TRACKING_ID = process.env.GA_KEY; // Make sure this is set in your .env
 
+mongoose.connect(process.env.DB, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+.then(() => console.log('MongoDB connected'))
+.catch(err => console.error('MongoDB connection error:', err));
+
 function trackMovieReviewEvent(movieTitle, genre, urlPath) {
     const options = {
         method: 'GET',
@@ -118,7 +125,10 @@ router.post('/signin', async (req, res) => { // Use async/await
     }
   } catch (err) {
     console.error(err); // Log the error
+    console.log(process.env.SECRET_KEY);
+    console.log(req.body);
     res.status(500).json({ success: false, message: 'Something went wrong. Please try again later.' }); // 500 Internal Server Error
+    
   }
 });
 
