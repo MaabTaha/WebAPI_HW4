@@ -43,7 +43,7 @@ function trackMovieReviewEvent(movieTitle, genre, urlPath) {
         method: 'POST',
         url: `https://www.google-analytics.com/mp/collect?measurement_id=${GA_TRACKING_ID}&api_secret=${process.env.GA_API_SECRET}`,
         body: {
-            client_id: crypto.randomBytes(16).toString('hex'),
+            client_id: 'debug-client-123',
             events: [
                 {
                     name: 'movie_review',
@@ -176,7 +176,7 @@ router.post('/reviews', authJwtController.isAuthenticated, async (req, res) => {
     await newReview.save();
 
     // Fire GA tracking event
-    trackMovieReviewEvent(movie.title, movie.genre, `/reviews`);
+    await trackMovieReviewEvent(movie.title, movie.genre, `/reviews`);
 
     res.status(201).json({ message: 'Review created!' });
 
