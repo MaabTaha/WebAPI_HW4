@@ -40,26 +40,30 @@ mongoose.connect(process.env.DB, {
 
 function trackMovieReviewEvent(movieTitle, genre, urlPath) {
     const options = {
-        method: 'GET',
-        url: 'https://www.google-analytics.com/collect',
-        qs: {
-            v: '1',                      // API Version
-            tid: GA_TRACKING_ID,          // GA Tracking ID
-            cid: crypto.randomBytes(16).toString('hex'), // Random client ID
-            t: 'event',                   // Event hit type
-            ec: genre,                    // Event category = Genre
-            ea: urlPath,                  // Event action = URL path
-            el: 'API Request for Movie Review', // Event label
-            ev: 1,                        // Event value = 1
-            cd1: movieTitle,              // Custom Dimension 1 = Movie Name
-            cm1: 1                        // Custom Metric 1 = count of review
+        method: 'POST',
+        url: `https://www.google-analytics.com/mp/collect?measurement_id=${GA_TRACKING_ID}&api_secret=${process.env.GA_API_SECRET}`,
+        body: {
+            client_id: crypto.randomBytes(16).toString('hex'),
+            events: [
+                {
+                    name: 'movie_review',
+                    params: {
+                        movie_name: movieTitle,   // custom dimension replacement
+                        genre: genre,
+                        url_path: urlPath,
+                        event_label: 'API Request for Movie Review',
+                        value: 1,
+                        debug_mode: true
+                    }
+                }
+            ]
         },
-        headers: { 'Cache-Control': 'no-cache' }
+        json: true
     };
 
     return rp(options)
-        .then(res => console.log(`GA event sent for movie: ${movieTitle}`))
-        .catch(err => console.error('GA tracking error:', err.message));
+        .then(() => console.log(`GA4 event sent for movie: ${movieTitle}`))
+        .catch(err => console.error('GA4 tracking error:', err.message));
 }
 
 function getJSONObjectForMovieRequirement(req) {
