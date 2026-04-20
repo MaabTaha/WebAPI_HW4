@@ -38,32 +38,29 @@ mongoose.connect(process.env.DB, {
 .then(() => console.log('MongoDB connected'))
 .catch(err => console.error('MongoDB connection error:', err));
 
-function trackMovieReviewEvent(movieTitle, genre, urlPath) {
-    const options = {
-        method: 'POST',
-        url: `https://www.google-analytics.com/mp/collect?measurement_id=${GA_TRACKING_ID}&api_secret=${process.env.GA_API_SECRET}`,
-        body: {
-            client_id: 'debug-client-123',
-            events: [
-                {
-                    name: 'movie_review',
-                    params: {
-                        movie_name: movieTitle,   // custom dimension replacement
-                        genre: genre,
-                        url_path: urlPath,
-                        event_label: 'API Request for Movie Review',
-                        value: 1,
-                        debug_mode: true
-                    }
-                }
-            ]
+function trackDimension(category, action, label, value, dimension, metric) {
+
+    var options = { 
+        method: 'GET',
+        url: 'https://www.google-analytics.com/collect',
+        qs: {
+            v: '1',                   // API Version
+            tid: GA_TRACKING_ID,      // UA Tracking ID
+            cid: crypto.randomBytes(16).toString("hex"),  // Random client ID
+            t: 'event',               // Event hit type
+            ec: category,             // Event category
+            ea: action,               // Event action
+            el: label,                // Event label
+            ev: value,                // Event value
+            cd1: dimension,           // Custom dimension (Movie Name)
+            cm1: metric               // Custom metric (count)
         },
-        json: true
+        headers: { 'Cache-Control': 'no-cache' }
     };
 
     return rp(options)
-        .then(() => console.log(`GA4 event sent for movie: ${movieTitle}`))
-        .catch(err => console.error('GA4 tracking error:', err.message));
+        .then(() => console.log(`UA event sent for movie: ${dimension}`))
+        .catch(err => console.error('UA tracking error:', err.message));
 }
 
 function getJSONObjectForMovieRequirement(req) {
@@ -175,8 +172,14 @@ router.post('/reviews', authJwtController.isAuthenticated, async (req, res) => {
 
     await newReview.save();
 
-    // Fire GA tracking event
-    await trackMovieReviewEvent(movie.title, movie.genre, `/reviews`);
+    trackDimension(
+        movie.genre,                 // Event Category
+        '/reviews',                  // Event Action
+        'API Request for Movie Review', // Event Label
+        1,                           // Event Value
+        movie.title,                 // Custom Dimension (Movie Name)
+        1                            // Custom Metric (count)
+    );
 
     res.status(201).json({ message: 'Review created!' });
 
