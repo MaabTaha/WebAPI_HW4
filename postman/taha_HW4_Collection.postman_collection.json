@@ -1,0 +1,490 @@
+{
+  "info": {
+    "_postman_id": "da1b0065-246b-4d29-abb3-5872570a9ba4",
+    "name": "taha_HW4_Collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "52546810",
+    "_collection_link": "https://go.postman.co/collection/52546810-da1b0065-246b-4d29-abb3-5872570a9ba4?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "ValidSignup",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"Maab4\",\r\n  \"username\": \"Maab4\",\r\n  \"password\": \"123456\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://webapi-hw4-taha.onrender.com/signup",
+          "protocol": "https",
+          "host": [
+            "webapi-hw4-taha",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "signup"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "ValidSignin",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const jsonData = pm.response.json();\r",
+              "pm.environment.set(\"token\", jsonData.token);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"username\": \"Maab2\",\r\n  \"password\": \"123456\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://webapi-hw4-taha.onrender.com/signin",
+          "protocol": "https",
+          "host": [
+            "webapi-hw4-taha",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "signin"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "ViewAllMovies",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "{{token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://webapi-hw4-taha.onrender.com/movies",
+          "protocol": "https",
+          "host": [
+            "webapi-hw4-taha",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "movies"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "ViewOneMovies",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "{{token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://webapi-hw4-taha.onrender.com/69e454dfb7843425b05383d8",
+          "protocol": "https",
+          "host": [
+            "webapi-hw4-taha",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "69e454dfb7843425b05383d8"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "DeleteMovie",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "authorization",
+            "value": "{{token}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "https://webapi-hw4-taha.onrender.com/movies/69e3f17397b8d108c8fe2959",
+          "protocol": "https",
+          "host": [
+            "webapi-hw4-taha",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "movies",
+            "69e3f17397b8d108c8fe2959"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "AddMovie",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "{{token}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"title\": \"Toy Story\",\r\n  \"releaseDate\": 1995,\r\n  \"genre\": \"Adventure\",\r\n  \"actors\": [\r\n    {\r\n      \"actorName\": \"Tom Hanks\",\r\n      \"characterName\": \"Woody\"\r\n    },\r\n    {\r\n      \"actorName\": \"Tim Allen\",\r\n      \"characterName\": \"Buzz Lightyear\"\r\n    }\r\n  ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://webapi-hw4-taha.onrender.com/movies",
+          "protocol": "https",
+          "host": [
+            "webapi-hw4-taha",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "movies"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "UpdateMovie",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "{{token}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"genre\": \"Adventure\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://webapi-hw4-taha.onrender.com/movies/69e454dfb7843425b05383d8",
+          "protocol": "https",
+          "host": [
+            "webapi-hw4-taha",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "movies",
+            "69e454dfb7843425b05383d8"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "AddMoreMovies-POST",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "{{token}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"title\": \"WALL-E\",\r\n  \"releaseDate\": 2008,\r\n  \"genre\": \"Science Fiction\",\r\n  \"actors\": [\r\n    {\r\n      \"actorName\": \"Ben Burtt\",\r\n      \"characterName\": \"WALL-E\"\r\n    },\r\n    {\r\n      \"actorName\": \"Elissa Knight\",\r\n      \"characterName\": \"EVE\"\r\n    }\r\n  ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://webapi-hw4-taha.onrender.com/movies",
+          "protocol": "https",
+          "host": [
+            "webapi-hw4-taha",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "movies"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "CreateReview",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "{{token}}",
+            "type": "text"
+          },
+          {
+            "key": "",
+            "value": "",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"movieId\": \"69e4f1281d62076e6c0bf37c\",\r\n  \"review\": \"hilarious\",\r\n  \"rating\": 5\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://webapi-hw4-taha.onrender.com/reviews",
+          "protocol": "https",
+          "host": [
+            "webapi-hw4-taha",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "reviews"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "DupCreateReview",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "{{token}}",
+            "type": "text"
+          },
+          {
+            "key": "",
+            "value": "",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"movieId\": \"69e454dfb7843425b05383d8\",\r\n  \"review\": \"great to watch with family\",\r\n  \"rating\": 5\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://webapi-hw4-taha.onrender.com/reviews",
+          "protocol": "https",
+          "host": [
+            "webapi-hw4-taha",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "reviews"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "InvalidCreateReview",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "{{token}}",
+            "type": "text"
+          },
+          {
+            "key": "",
+            "value": "",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"movieId\": \"1169e454dfb7843425b05383\",\r\n  \"review\": \"great to watch with family\",\r\n  \"rating\": 5\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://webapi-hw4-taha.onrender.com/reviews",
+          "protocol": "https",
+          "host": [
+            "webapi-hw4-taha",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "reviews"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "ViewOneMovRev",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "{{token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://webapi-hw4-taha.onrender.com/movies/69e454dfb7843425b05383d8?reviews=true",
+          "protocol": "https",
+          "host": [
+            "webapi-hw4-taha",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "movies",
+            "69e454dfb7843425b05383d8"
+          ],
+          "query": [
+            {
+              "key": "reviews",
+              "value": "true"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "InvalidViewOneMovRev",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "{{token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://webapi-hw4-taha.onrender.com/movies/1169e454dfb7843425b05383?reviews=true",
+          "protocol": "https",
+          "host": [
+            "webapi-hw4-taha",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "movies",
+            "1169e454dfb7843425b05383"
+          ],
+          "query": [
+            {
+              "key": "reviews",
+              "value": "true"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "ViewReviews",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "{{token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://webapi-hw4-taha.onrender.com/reviews",
+          "protocol": "https",
+          "host": [
+            "webapi-hw4-taha",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "reviews"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
